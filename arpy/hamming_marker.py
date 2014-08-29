@@ -1,9 +1,10 @@
+import cv2
+
 from numpy import array, mean, binary_repr, zeros
 from numpy.random import randint
 from scipy.ndimage import zoom
 
-from arpy.hamming import (encode, decode,
-                          msg_size, data_size)
+from arpy.hamming import encode, msg_size, data_size
 
 marker_size = msg_size + 2
 max_id = 2 ** (msg_size * data_size)
@@ -19,12 +20,15 @@ class HammingMarker(object):
         self.hamming_code = self._encode_id(self.id)
         self.contours = contours
 
+    def __repr__(self):
+        return '<Marker id={} center={}>'.format(self.id, self.center)
+
     @property
     def center(self):
         if self.contours is None:
             return None
 
-        return mean(self.contours, axis=0)
+        return mean(self.contours, axis=0).flatten()
 
     def toimage(self, size=marker_size):
         img = zeros((marker_size, marker_size))
@@ -33,6 +37,9 @@ class HammingMarker(object):
 
         scale = size / float(marker_size)
         return zoom(img, zoom=scale, order=0)
+
+    def draw_contour(self, img, color=(0, 255, 0), linewidth=5):
+        cv2.drawContours(img, [self.contours], -1, color, linewidth)
 
     @classmethod
     def generate(cls):
