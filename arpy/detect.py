@@ -63,11 +63,11 @@ def detect_markers(img, marker_ids=None):
         for _ in range(4):
             try:
                 code = decode(sub_marker).flatten()
+                id = (2 ** find(code == 1)).sum()
+                markers.append(HammingMarker(id=id, contours=approx_curve))
             except ValueError:  # The hamming code is incorrect
                 pass
-
-            id = (2 ** find(code == 1)).sum()
-            markers.append(HammingMarker(id=id, contours=approx_curve))
+            
             marker = rot90(marker)
 
     # Remove duplicates
