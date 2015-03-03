@@ -67,8 +67,8 @@ def detect_markers(img, marker_ids=None):
                 markers.append(HammingMarker(id=id, contours=approx_curve))
             except ValueError:  # The hamming code is incorrect
                 pass
-            
-            marker = rot90(marker)
+
+            sub_marker = rot90(sub_marker)
 
     # Remove duplicates
     markers = {m.id: m for m in markers}.values()
