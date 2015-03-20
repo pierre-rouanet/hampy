@@ -20,5 +20,8 @@ if __name__ == '__main__':
         for m in markers:
             m.draw_contour(img)
 
+            cv2.putText(img, str(m.id), tuple(int(p) for p in m.center),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
+
         cv2.imshow('live', img)
         cv2.waitKey(20)
