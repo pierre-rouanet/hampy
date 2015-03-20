@@ -5,7 +5,7 @@ from numpy.random import randint
 from scipy.ndimage import zoom
 from PIL import Image
 
-from arpy.hamming import encode, msg_size, data_size
+from hampy.hamming import encode, msg_size, data_size
 
 marker_size = msg_size + 2
 max_id = 2 ** (msg_size * data_size)

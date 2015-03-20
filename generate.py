@@ -1,7 +1,7 @@
 import cv2
 import argparse
 
-from arpy import HammingMarker
+from hampy import HammingMarker
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

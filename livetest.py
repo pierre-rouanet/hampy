@@ -1,7 +1,7 @@
 import cv2
 import argparse
 
-from arpy import detect_markers
+from hampy import detect_markers
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
