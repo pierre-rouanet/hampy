@@ -12,9 +12,15 @@ def detect_markers(img, marker_ids=None):
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     edges = cv2.Canny(gray, 10, 100)
-    contours, _ = cv2.findContours(edges.copy(),
-                                   cv2.RETR_TREE,
-                                   cv2.CHAIN_APPROX_NONE)
+
+    if cv2.__version__[0] == '3':
+        _, contours, _ = cv2.findContours(edges.copy(),
+                                          cv2.RETR_TREE,
+                                          cv2.CHAIN_APPROX_NONE)
+    else:
+        contours, _ = cv2.findContours(edges.copy(),
+                                       cv2.RETR_TREE,
+                                       cv2.CHAIN_APPROX_NONE)
 
     # We only keep the long enough contours
     min_contour_length = min(width, height) / 5
