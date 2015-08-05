@@ -12,7 +12,7 @@ max_id = 2 ** (msg_size * data_size)
 
 
 class HammingMarker(object):
-    def __init__(self, id, contours=None):
+    def __init__(self, id, contours=None, img_size=None):
         if not 0 <= id < max_id:
             msg = 'Id must be {} <= id < {} (id={})'.format(0, max_id, id)
             raise ValueError(msg)
@@ -20,6 +20,7 @@ class HammingMarker(object):
         self.id = id
         self.hamming_code = self._encode_id(self.id)
         self.contours = contours
+        self.size = list(reversed(img_size))
 
     def __repr__(self):
         return '<Marker id={} center={}>'.format(self.id, self.center)
@@ -30,6 +31,10 @@ class HammingMarker(object):
             return None
 
         return mean(self.contours, axis=0).flatten()
+
+    @property
+    def normalized_center(self):
+        return ((array(self.center, dtype=float) / self.size) - [0.5, 0.5]) * 2
 
     def toimage(self, size=marker_size, output=None):
         img = zeros((marker_size, marker_size))

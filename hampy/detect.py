@@ -70,7 +70,7 @@ def detect_markers(img, marker_ids=None):
             try:
                 code = decode(sub_marker).flatten()
                 id = (2 ** find(code == 1)).sum()
-                markers.append(HammingMarker(id=id, contours=approx_curve))
+                markers.append(HammingMarker(id=id, contours=approx_curve, img_size=(width, height)))
             except ValueError:  # The hamming code is incorrect
                 pass
 
