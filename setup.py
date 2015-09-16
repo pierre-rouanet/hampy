@@ -7,7 +7,7 @@ setup(name='hampy',
       version='1.2',
       packages=find_packages(),
 
-      install_requires=['numpy', 'matplotlib', 'scipy'],
+      install_requires=['numpy', 'matplotlib', 'scipy', 'scikit-image'],
       setup_requires=['setuptools_git >= 0.3', ],
 
       author='Pierre Rouanet',

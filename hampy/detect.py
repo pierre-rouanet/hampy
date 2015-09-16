@@ -1,26 +1,30 @@
 import cv2
 
 from numpy import array, all, zeros, ones, rot90
+from skimage.measure import find_contours
 from matplotlib.mlab import find
 
 from .hamming_marker import HammingMarker, marker_size
 from .hamming import decode
 
 
+def sk2cv(contours):
+    l = []
+
+    for c in contours:
+        ll = zeros((c.shape[0], 1, 2), dtype='int32')
+        ll[:, 0, 0] = c[:, 1]
+        ll[:, 0, 1] = c[:, 0]
+
+        l.append(array(ll))
+    return l
+
+
 def detect_markers(img, marker_ids=None):
     width, height, _ = img.shape
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    edges = cv2.Canny(gray, 10, 100)
-
-    if cv2.__version__[0] == '3':
-        _, contours, _ = cv2.findContours(edges.copy(),
-                                          cv2.RETR_TREE,
-                                          cv2.CHAIN_APPROX_NONE)
-    else:
-        contours, _ = cv2.findContours(edges.copy(),
-                                       cv2.RETR_TREE,
-                                       cv2.CHAIN_APPROX_NONE)
+    contours = sk2cv(find_contours(gray, 50))
 
     # We only keep the long enough contours
     min_contour_length = min(width, height) / 5
