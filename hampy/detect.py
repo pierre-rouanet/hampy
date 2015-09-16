@@ -52,7 +52,7 @@ def detect_markers(img, marker_ids=None):
         warped_img = cv2.warpPerspective(img, persp_transf,
                                          (warped_size, warped_size))
         warped_gray = cv2.cvtColor(warped_img, cv2.COLOR_BGR2GRAY)
-        _, warped_bin = cv2.threshold(warped_gray, 127, 255, cv2.THRESH_BINARY)
+        _, warped_bin = cv2.threshold(warped_gray, 50, 255, cv2.THRESH_BINARY)
 
         marker = warped_bin.reshape([marker_size,
                                      warped_size / marker_size,
