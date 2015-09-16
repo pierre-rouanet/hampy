@@ -26,9 +26,9 @@ def detect_markers(img, marker_ids=None):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     contours = sk2cv(find_contours(gray, 50))
 
-    # We only keep the long enough contours
-    min_contour_length = min(width, height) / 5
-    contours = [c for c in contours if len(c) > min_contour_length]
+    # We only keep the big enough contours
+    min_area = width * height * .01
+    contours = [c for c in contours if cv2.contourArea(c) > min_area]
 
     warped_size = 9 * 10
     canonical_marker_coords = array(((0, 0),
