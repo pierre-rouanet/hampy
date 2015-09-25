@@ -20,7 +20,7 @@ class HammingMarker(object):
         self.id = id
         self.hamming_code = self._encode_id(self.id)
         self.contours = contours
-        self.size = list(reversed(img_size))
+        self.size = list(reversed(img_size)) if img_size is not None else None
 
     def __repr__(self):
         return '<Marker id={} center={}>'.format(self.id, self.center)
