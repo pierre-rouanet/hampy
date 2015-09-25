@@ -4,10 +4,10 @@ from setuptools import setup, find_packages
 
 
 setup(name='hampy',
-      version='1.3.1',
+      version='1.4.0',
       packages=find_packages(),
 
-      install_requires=['numpy', 'matplotlib', 'scipy', 'scikit-image'],
+      install_requires=['numpy', 'matplotlib', 'scipy'],
       setup_requires=['setuptools_git >= 0.3', ],
 
       author='Pierre Rouanet',
