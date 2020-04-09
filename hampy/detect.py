@@ -1,13 +1,13 @@
 import cv2
 
-from numpy import array, all, zeros, ones, rot90
-from matplotlib.mlab import find
+from numpy import array, all, zeros, ones, rot90, nonzero, ravel
 
 from .hamming_marker import HammingMarker, marker_size
 from .hamming import decode
 
-
-
+def find(condition):
+    res, = nonzero(ravel(condition))
+    return res
 
 def detect_markers(img, marker_ids=None):
     width, height, _ = img.shape
@@ -15,7 +15,7 @@ def detect_markers(img, marker_ids=None):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     edges = cv2.Canny(gray, 10, 100)
-    _, contours, _ = cv2.findContours(edges.copy(),
+    contours, _ = cv2.findContours(edges.copy(),
                                       cv2.RETR_TREE,
                                       cv2.CHAIN_APPROX_NONE)
 
