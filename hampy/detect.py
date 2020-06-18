@@ -74,6 +74,6 @@ def detect_markers(img, marker_ids=None):
             sub_marker = rot90(sub_marker)
 
     # Remove duplicates
-    markers = {m.id: m for m in markers}.values()
+    markers = list({m.id: m for m in markers}.values())
 
     return markers
